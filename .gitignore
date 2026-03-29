@@ -1,0 +1,22 @@
+# Maven
+target/
+
+# Logs
+*.log
+
+# OS files
+.DS_Store
+
+# IDE
+.idea/
+*.iml
+.vscode/
+
+# Env files
+.env
+
+# Node (if frontend later)
+node_modules/
+
+# Build
+dist/
