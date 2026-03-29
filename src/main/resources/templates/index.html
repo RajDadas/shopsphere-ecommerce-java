@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>ShopSphere</title>
+</head>
+<body>
+
+<h1>ShopSphere Products</h1>
+
+<form action="/add" method="post">
+    <input type="text" name="name" placeholder="Product Name" />
+    <input type="number" name="price" placeholder="Price" />
+    <button type="submit">Add Product</button>
+</form>
+
+<h2>Product List</h2>
+
+<div th:each="p : ${products}">
+    <p th:text="${p.name}"></p>
+    <p th:text="${p.price}"></p>
+</div>
+
+</body>
+</html>
