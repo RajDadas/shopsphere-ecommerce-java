@@ -17,25 +17,23 @@ public class SecurityConfig {
     }
 
     public SecurityConfig(CustomUserDetailsService userDetailsService) {
-    this.userDetailsService = userDetailsService;
+        this.userDetailsService = userDetailsService;
     }
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-      http
-    .csrf(csrf -> csrf.disable())
-    .authorizeHttpRequests(auth -> auth
-        .requestMatchers("/login", "/register").permitAll()
-        .anyRequest().authenticated()
-    )
-    .userDetailsService(userDetailsService)
-    .formLogin(form -> form
-        .loginPage("/login")
-        .defaultSuccessUrl("/", true)
-        .permitAll()
-    );
-            .logout(logout -> logout.permitAll());
-
+        http
+                .csrf(csrf -> csrf.disable())
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/login", "/register").permitAll()
+                        .anyRequest().authenticated()
+                )
+                .userDetailsService(userDetailsService)
+                .formLogin(form -> form
+                        .loginPage("/login")
+                        .defaultSuccessUrl("/", true)
+                        .permitAll()
+                );
         return http.build();
     }
 }
