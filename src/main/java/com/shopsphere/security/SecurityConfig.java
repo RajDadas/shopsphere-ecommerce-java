@@ -9,24 +9,31 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 @Configuration
 public class SecurityConfig {
 
+    private final CustomUserDetailsService userDetailsService;
+
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
+    public SecurityConfig(CustomUserDetailsService userDetailsService) {
+    this.userDetailsService = userDetailsService;
+    }
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http
-            .csrf(csrf -> csrf.disable())
-            .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/login", "/register").permitAll()
-                .anyRequest().authenticated()
-            )
-            .formLogin(form -> form
-                .loginPage("/login")
-                .defaultSuccessUrl("/", true)
-                .permitAll()
-            )
+      http
+    .csrf(csrf -> csrf.disable())
+    .authorizeHttpRequests(auth -> auth
+        .requestMatchers("/login", "/register").permitAll()
+        .anyRequest().authenticated()
+    )
+    .userDetailsService(userDetailsService)
+    .formLogin(form -> form
+        .loginPage("/login")
+        .defaultSuccessUrl("/", true)
+        .permitAll()
+    );
             .logout(logout -> logout.permitAll());
 
         return http.build();
