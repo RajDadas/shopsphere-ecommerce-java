@@ -34,15 +34,26 @@
                 <tr>
                     <th>Name</th>
                     <th>Price</th>
+                    <th>Action</th> <!-- NEW COLUMN -->
                 </tr>
             </thead>
             <tbody>
                 <tr th:each="p : ${products}">
                     <td th:text="${p.name}"></td>
                     <td th:text="${p.price}"></td>
+                    <td>
+                        <form th:action="@{/cart/add/{id}(id=${p.id})}" method="post">
+                            <button class="btn btn-success">Add to Cart</button>
+                        </form>
+                    </td>
                 </tr>
             </tbody>
         </table>
+    </div>
+
+    <!-- View Cart Button -->
+    <div class="text-end mt-3">
+        <a href="/cart" class="btn btn-warning">View Cart</a>
     </div>
 
 </div>
